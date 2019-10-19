@@ -20,13 +20,13 @@ def parse_args():
     parser.add_argument('--batch_size', type=int, default=256)
     parser.add_argument('--seed', type=int, default=1111, help='random seed')
     parser.add_argument('--gpuid', type=int, default=0)
-    parser.add_argument('--input_img_h5', default='/home/user/chenfeilong/dataset/visdial0.9/data/vdl_img_vgg.h5',
+    parser.add_argument('--input_img_h5', default='data/features_faster_rcnn_x101_train.h5.h5',
                         help='path to dataset, now hdf5 file')
-    parser.add_argument('--input_ques_h5', default='/home/user/chenfeilong/aaai/tdAtten3-2-1/data/visdial_data.h5',
+    parser.add_argument('--input_ques_h5', default='data/visdial_data_v1.0.h5',
                         help='path to dataset, now hdf5 file')
-    parser.add_argument('--input_json', default='/home/user/chenfeilong/aaai/tdAtten3-2-1/data/visdial_params.json',
+    parser.add_argument('--input_json', default='data/visdial_params_v1.0.json',
                         help='path to dataset, now hdf5 file')
-    parser.add_argument('--model_path', default='/home/user/chenfeilong/aaai/tdAtten3-2-1-v0.9/saved_models/2019-8-28-14-53/model_epoch_17.pth',
+    parser.add_argument('--model_path', default='',
                         help='path to model, now pth file')
     parser.add_argument('--img_feat_size', type=int, default=512, help='input batch size')
     parser.add_argument('--ninp', type=int, default=300, help='size of word embeddings')
