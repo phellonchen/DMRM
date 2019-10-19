@@ -19,11 +19,11 @@ It is recommended to set up this source code using Anaconda or Miniconda. <br>
 
 ```sh
 git clone https://github.com/paper-coder/paper8408.git
-conda create -n dan_visdial python=3.6
+conda create -n dmrm_visdial python=3.6
 
 # activate the environment and install all dependencies
 conda activate dmrm_visdial
-cd paper8408/
+cd $PROJECT_ROOT/
 pip install -r requirements.txt
 ```
 
@@ -42,11 +42,11 @@ Data preprocessing & Word embedding initialization
 ----------------------
 ```sh
 # data preprocessing
-cd dmrm-VisDial/script/
+cd $PROJECT_ROOT/script/
 python prepro.py
 
 # Word embedding vector initialization (GloVe)
-cd dmrm-VisDial/script/
+cd $PROJECT_ROOT/script/
 python create_glove.py
 ```
 
@@ -61,7 +61,7 @@ python main_v0.9.py or python main_v1.0.py
 Our model save model checkpoints at every epoch and undate the best one. You can change it by editing the `train.py`. 
 
 ### Logging
-Logging data `save_models/time/log.txt` shows epoch, loss, and learning rate.
+Logging data `$PROJECT_ROOT/save_models/time/log.txt` shows epoch, loss, and learning rate.
 
 Evaluation
 --------
