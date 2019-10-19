@@ -6,7 +6,7 @@ Pytorch Implementation for the paper:
 **[DMRM: A Dual-channel Multi-hop Reasoning Model for Visual Dialog]**
 
 <!--![Overview of Dual-channel Multi-hop Reasoning Model](dmrm_overview.jpg)-->
-<img src="dmrm_overview.jpg" width="90%" align="middle">
+<img src="dmrm_overview.png" width="90%" align="middle">
 
 
 Setup and Dependencies
@@ -22,34 +22,30 @@ git clone https://github.com/paper-coder/paper8408.git
 conda create -n dan_visdial python=3.6
 
 # activate the environment and install all dependencies
-conda activate dan_visdial
+conda activate dmrm_visdial
 cd paper8408/
 pip install -r requirements.txt
 ```
 
 Download Features
 ----------------------
-1. We used the Faster-RCNN pre-trained with Visual Genome as image features. Download the image features below, and put each feature under `$PROJECT_ROOT/data/{SPLIT_NAME}_feature` directory. We need `image_id` to RCNN bounding box index file (`{SPLIT_NAME}_imgid2idx.pkl`) because the number of bounding box per image is not fixed (ranging from 10 to 100).
+1. We used the Faster-RCNN pre-trained with Visual Genome as image features. Download the image features below, and put each feature under `$PROJECT_ROOT/data` directory. 
+  * [`features_faster_rcnn_x101_train.h5`](https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/features_faster_rcnn_x101_train.h5): Bottom-up features of 36 proposals from images of `train` split.
+  * [`features_faster_rcnn_x101_val.h5`](https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/features_faster_rcnn_x101_val.h5): Bottom-up features of 36 proposals from images of `val` split.
+  * [`features_faster_rcnn_x101_test.h5`](https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/features_faster_rcnn_x101_test.h5): Bottom-up features of 36 proposals from images of `test` split.
 
-  * [`train_btmup_f.hdf5`][3]: Bottom-up features of 10 to 100 proposals from images of `train` split (32GB).
-  * [`train_imgid2idx.pkl`][4]: `image_id` to bbox index file for `train` split 
-  * [`val_btmup_f.hdf5`][5]: Bottom-up features of 10 to 100 proposals from images of `validation` split (0.5GB).
-  * [`val_imgid2idx.pkl`][6]: `image_id` to bbox index file for `val` split
-  * [`test_btmup_f.hdf5`][7]: Bottom-up features of 10 to 100 proposals from images of `test` split (2GB).
-  * [`test_imgid2idx.pkl`][8]: `image_id` to bbox index file for `test` split
-
-2. Download the GloVe pretrained word vectors from [here][9], and keep `glove.6B.300d.txt` under `$PROJECT_ROOT/data/glove` directory.
+2. Download the GloVe pretrained word vectors from [here][9], and keep `glove.6B.300d.txt` under `$PROJECT_ROOT/data` directory.
 
 Data preprocessing & Word embedding initialization
 ----------------------
 ```sh
 # data preprocessing
-cd DAN-VisDial/data/
+cd dmrm-VisDial/script/
 python prepro.py
 
 # Word embedding vector initialization (GloVe)
-cd ../utils
-python utils.py
+cd dmrm-VisDial/script/
+python create_glove.py
 ```
 
 Training
