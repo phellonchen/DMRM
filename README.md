@@ -67,7 +67,7 @@ Evaluation
 --------
 Evaluation of a trained model checkpoint can be evaluated as follows:
 ```sh
-python evaluate.py
+python eval_v0.9.py or python eval_v1.0.py
 ```
 
 Results
