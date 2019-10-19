@@ -4,7 +4,6 @@ from attention import Attention, NewAttention
 from language_model import WordEmbedding, QuestionEmbedding, QuestionEmbedding2
 from classifier import SimpleClassifier
 from fc import FCNet
-from Decoders.AttModel import TopDownModel
 from Decoders.decoder1 import _netG as netG
 import torch.nn.functional as F
 from torch.autograd import Variable
