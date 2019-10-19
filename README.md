@@ -29,7 +29,9 @@ pip install -r requirements.txt
 
 Download Features
 ----------------------
-1. We used the Faster-RCNN pre-trained with Visual Genome as image features. Download the image features below, and put each feature under `$PROJECT_ROOT/data` directory. 
+1. Download the VisDial dialog json files from [here][7] and keep it under `$PROJECT_ROOT/data` directory, for default arguments to work effectively.
+
+2. We used the Faster-RCNN pre-trained with Visual Genome as image features. Download the image features below, and put each feature under `$PROJECT_ROOT/data` directory. 
   * [`features_faster_rcnn_x101_train.h5`](https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/features_faster_rcnn_x101_train.h5): Bottom-up features of 36 proposals from images of `train` split.
   * [`features_faster_rcnn_x101_val.h5`](https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/features_faster_rcnn_x101_val.h5): Bottom-up features of 36 proposals from images of `val` split.
   * [`features_faster_rcnn_x101_test.h5`](https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/features_faster_rcnn_x101_test.h5): Bottom-up features of 36 proposals from images of `test` split.
@@ -52,30 +54,35 @@ Training
 --------
 Simple run
 ```sh
-python train.py 
+python main_v0.9.py or python main_v1.0.py 
 ```
 
 ### Saving model checkpoints  
-By default, our model save model checkpoints at every epoch. You can change it by using `-save_step` option. 
+Our model save model checkpoints at every epoch and undate the best one. You can change it by editing the `train.py`. 
 
 ### Logging
-Logging data `checkpoints/start/time/log.txt` shows epoch, loss, and learning rate.
+Logging data `save_models/time/log.txt` shows epoch, loss, and learning rate.
 
 Evaluation
 --------
 Evaluation of a trained model checkpoint can be evaluated as follows:
 ```sh
-python evaluate.py -load_path /path/to/.pth -split val
+python evaluate.py
 ```
-Validation scores can be checked in offline setting. But if you want to check the `test split` score, you have to submit a json file to [online evaluation server][10]. You can make json format with `-save_ranks=True` option.
 
 Results
 --------
-Performance on `v1.0 test-std` (trained on `v1.0` train):
+Performance on `v0.9 val-std` (trained on `v0.9` train):
 
-  Model  |  NDCG   |  MRR   |  R@1  | R@5  |  R@10   |  Mean  |
- ------- | ------ | ------ | ------ | ------ | ------ | ------ |
-DAN | 0.5759 | 0.6320 | 49.63 |  79.75| 89.35 | 4.30 |
+  Model  |  MRR   |  R@1  | R@5  |  R@10   |  Mean  |
+ ------- | ------ | ------ | ------ | ------ | ------ |
+ DMRM    | 55.96 | 46.20 | 66.02 | 72.43 | 13.15 |
+
+Performance on `v1.0 val-std` (trained on `v1.0` train):
+
+   Model  |  MRR   |  R@1  | R@5  |  R@10   |  Mean  |
+ ------- | ------ | ------ | ------ | ------ | ------ |
+ DMRM    | 50.16 | 40.15 | 60.02 | 67.21 | 15.19 |
 
 License
 --------
