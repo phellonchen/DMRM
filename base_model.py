@@ -7,7 +7,7 @@ from fc import FCNet
 from Decoders.decoder1 import _netG as netG
 import torch.nn.functional as F
 from torch.autograd import Variable
-
+from misc.utils import LayerNorm
 class BaseModel2(nn.Module):
     def __init__(self, w_emb, q_emb, h_emb, v_att, h_att, q_net, v_net, h_net, qih_att, qhi_att, qih_net, qhi_net,
                  decoder, args, qhih_att, qihi_att):
@@ -20,20 +20,22 @@ class BaseModel2(nn.Module):
         self.img_embed = nn.Linear(args.img_feat_size, 2 * args.nhid)
         self.w1 = nn.Linear(args.nhid*2, args.nhid*2)
         self.w2 = nn.Linear(args.nhid*2, args.nhid*2)
-        self.v_att = v_att
-        self.h_att = h_att
+        self.track_1 = v_att
+        self.locate_1 = h_att
+        self.locate_2 = qih_att
+        self.track_2 = qhi_att
+        self.locate_3 = qhih_att
+        self.track_3 = qihi_att
         self.q_net = q_net
         self.v_net = v_net
         self.h_net = h_net
-        self.qih_att = qih_att
-        self.qhi_att = qhi_att
-        self.qhih_att = qhih_att
-        self.qihi_att = qihi_att
         self.qih_net = qih_net
         self.qhi_net = qhi_net
         self.fc1 = nn.Linear(args.nhid * 4, self.ninp)
         self.dropout = args.dropout
         self.vocab_size = args.vocab_size
+        # self.fch = FCNet([args.nhid * 2, args.nhid * 2])
+        # self.layernorm = LayerNorm(args.nhid*2)
 
     def forward(self, image, question, history, answer, tans, rnd, Training=True, sampling=False):
 
@@ -46,20 +48,27 @@ class BaseModel2(nn.Module):
         h_emb, _ = self.h_emb(hw_emb)  # [batch * rnd, h_dim]
         h_emb = h_emb.view(-1, rnd, h_emb.size(1))
 
+        # cap & image
+        # qc_att = self.v_att(image, h_emb[:, 0, :])
+        # qc_emb = (qc_att * image).sum(1)
+        # qc_emb = self.fch(qc_emb * q_emb)
+
         # question & image --> qi
-        qv_att = self.v_att(image, q_emb)
+        qv_att = self.track_1(image, q_emb)
         qv_emb = (qv_att * image).sum(1)  # [batch, v_dim]
 
         # question & history --> qh
-        qh_att = self.h_att(h_emb, q_emb)
+        qh_att = self.locate_1(h_emb, q_emb)
         qh_emb = (qh_att * h_emb).sum(1)  # [batch, h_dim]
+        # qh_emb = self.fch(qh_emb+q_emb)
+        # qh_emb = self.layernorm(qh_emb+h_emb[:,0,:])
 
         # qh & image --> qhi
-        qhi_att = self.qhi_att(image, qh_emb)
+        qhi_att = self.track_2(image, qh_emb)
         qhi_emb = (qhi_att * image).sum(1)  # [batch, v_dim]
 
         # qi & history --> qih
-        qih_att = self.qih_att(h_emb, qv_emb)
+        qih_att = self.locate_2(h_emb, qv_emb)
         qih_emb = (qih_att * h_emb).sum(1)  # [batch, h_dim]
         
         q_re = self.q_net(q_emb)
@@ -70,11 +79,11 @@ class BaseModel2(nn.Module):
         qhi_emb = q_re * qhi_emb
 
         # qih & i --> qihi
-        qihi_att = self.qihi_att(image, qih_emb)
+        qihi_att = self.track_3(image, qih_emb)
         qihi_emb = (qihi_att * image).sum(1)
 
         # qhi & his --> qhih
-        qhih_att = self.qhih_att(h_emb, qhi_emb)
+        qhih_att = self.locate_3(h_emb, qhi_emb)
         qhih_emb = (qhih_att * h_emb).sum(1)
 
         q_repr = self.q_net(q_emb)
