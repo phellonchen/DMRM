@@ -18,7 +18,7 @@ It is recommended to set up this source code using Anaconda or Miniconda. <br>
 2. Clone this repository and create an environment:
 
 ```sh
-git clone https://github.com/paper-coder/paper8408.git
+git clone https://github.com/phellonchen/DMRM.git
 conda create -n dmrm_visdial python=3.6
 
 # activate the environment and install all dependencies
