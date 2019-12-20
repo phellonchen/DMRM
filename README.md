@@ -3,7 +3,9 @@ DMRM: A Dual-channel Multi-hop Reasoning Model for Visual Dialog
 
 Pytorch Implementation for the paper:
 
-**[DMRM: A Dual-channel Multi-hop Reasoning Model for Visual Dialog]**
+**[DMRM: A Dual-channel Multi-hop Reasoning Model for Visual Dialog]**[11]** <br>
+[Feilong Chen], [Fandong Meng], [Jiaming Xu], [Peng Li], [Bo Xu],and [Jie Zhou] <br>
+In AAAI 2020 
 
 <!--![Overview of Dual-channel Multi-hop Reasoning Model](dmrm_overview.jpg)-->
 <img src="dmrm_overview.png" width="90%" align="middle">
@@ -98,3 +100,4 @@ MIT License
 [8]: https://drive.google.com/file/d/1_32kGhd6wKzQLqfmqJzIHubfZwe9nhFy/view?usp=sharing
 [9]: http://nlp.stanford.edu/data/glove.6B.zip 
 [10]: https://evalai.cloudcv.org/web/challenges/challenge-page/161/overview
+[11]: https://arxiv.org/abs/1912.08360
