@@ -26,7 +26,7 @@ conda create -n dmrm_visdial python=3.6
 # activate the environment and install all dependencies
 conda activate dmrm_visdial
 cd $PROJECT_ROOT/
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 Download Features
