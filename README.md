@@ -31,7 +31,7 @@ pip install -r requirements.txt
 
 Download Features
 ----------------------
-1. Download the VisDial dialog json files from [here][7] and keep it under `$PROJECT_ROOT/data` directory, for default arguments to work effectively.
+1. Download the VisDial dialog json files from [here](https://visualdialog.org/data)[7] and keep it under `$PROJECT_ROOT/data` directory, for default arguments to work effectively.
 
 2. We used the Faster-RCNN pre-trained with Visual Genome as image features. Download the image features below, and put each feature under `$PROJECT_ROOT/data` directory. 
   * [`features_faster_rcnn_x101_train.h5`](https://s3.amazonaws.com/visual-dialog/data/v1.0/2019/features_faster_rcnn_x101_train.h5): Bottom-up features of 36 proposals from images of `train` split.
