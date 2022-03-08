@@ -85,6 +85,17 @@ Performance on `v1.0 val-std` (trained on `v1.0` train):
    Model  |  MRR   |  R@1  | R@5  |  R@10   |  Mean  |
  ------- | ------ | ------ | ------ | ------ | ------ |
  DMRM    | 50.16 | 40.15 | 60.02 | 67.21 | 15.19 |
+ 
+ If you find this repository useful, please consider citing our work:
+ @inproceedings{chen2020dmrm,
+  title={DMRM: A dual-channel multi-hop reasoning model for visual dialog},
+  author={Chen, Feilong and Meng, Fandong and Xu, Jiaming and Li, Peng and Xu, Bo and Zhou, Jie},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={34},
+  number={05},
+  pages={7504--7511},
+  year={2020}
+}
 
 License
 --------
